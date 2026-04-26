@@ -1,14 +1,13 @@
 import { RatingPage } from "../pages/RatingPage"
-import { AuthFixture, test as base } from "../fixtures/authorized-fixture"
+import { test as base } from "@playwright/test"
 
 export type RatingFixture = {
     ratingPage: RatingPage
-    auth: AuthFixture
 }
 
 export const test = base.extend<RatingFixture>({
-    ratingPage: async({auth}, use) => {
-        const ratingPage = new RatingPage(auth.page);
+    ratingPage: async({page}, use) => {
+        const ratingPage = new RatingPage(page);
         await ratingPage.open();
 
         await use(ratingPage);

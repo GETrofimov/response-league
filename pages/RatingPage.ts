@@ -1,5 +1,4 @@
 import test, { Locator, Page } from "@playwright/test";
-
 export class RatingPage {
     
     // Константы
@@ -66,5 +65,15 @@ export class RatingPage {
         const columnData = await this.page.locator('table tr td:nth-child(4)').allInnerTexts()
         const points = columnData.map(item => Number(item.split(' ')[0]))
         return points;
+    }
+
+    async getRowByIndex(index: number): Promise<string[]> {
+        return (await this.table.locator('tr').nth(index).allInnerTexts()).flatMap(i => i.split('\t'))
+    }
+
+    async getTableHeaders() {
+        test.step('Получаем заголовки таблицы', async() => {
+            return this.getRowByIndex(0)
+        })
     }
 }

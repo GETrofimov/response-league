@@ -4,6 +4,12 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { captureRequests } from "../utils/listener";
 
 test.describe('Проверки авторизации', () => {
+
+    // Для тестов авторизации сбрасываем заранее полученные токены авторизации
+    test.use({
+        storageState: {cookies: [], origins: []}
+    })
+
     test('Проверка успешного логина', async({loginPage}) => {
         await loginPage.login()
         expect(loginPage.page).toHaveURL(DashboardPage.PATH)

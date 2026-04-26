@@ -1,3 +1,4 @@
+import { RatingPageColumnHeaders } from "../constants/rating-page";
 import { test, expect }  from "../fixtures/rating-page-fixture";
 import { RatingPage } from "../pages/RatingPage";
 
@@ -74,5 +75,10 @@ test.describe('Проверки страницы "Рейтинг игроков"
         const sorted = points.sort((a, b) => b - a);
         
         expect(points).toStrictEqual(sorted);
+    })
+
+    test('Проверка, что в таблице отображаются названия колонок', async({ratingPage}) => {
+        const headers = await ratingPage.getRowByIndex(0)
+        expect(headers).toEqual(Object.values(RatingPageColumnHeaders))
     })
 })
